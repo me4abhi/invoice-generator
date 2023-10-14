@@ -27,20 +27,20 @@ npm start / npm run build
 
 ### To-Do
 
-- [ ] Integrate Redux into the application.
+- [x] Integrate Redux into the application.
 
-- [ ] Create Redux&nbsp;`actions`,&nbsp;`action types`, and&nbsp;`reducers` to manage the invoice state.
+- [x] Create Redux&nbsp;`actions`,&nbsp;`action types`, and&nbsp;`reducers` to manage the invoice state.
 
-  - [ ] Add
-  - [ ] Edit
-  - [ ] View
-  - [ ] Delete
+  - [x] Add
+  - [x] Edit
+  - [x] View
+  - [x] Delete
 
-- [ ] Implement a component to display a list of invoices.
+- [x] Implement a component to display a list of invoices.
 
-- [ ] Make the list of invoices as first screen and move the create to a new&nbsp;`Create Invoice`&nbsp;button.
+- [x] Make the list of invoices as first screen and move the create to a new&nbsp;`Create Invoice`&nbsp;button.
 
-- [ ] Proper error handling
+- [x] Proper error handling
 
 ### Other Changes
 
@@ -50,7 +50,14 @@ npm start / npm run build
 
 - [x] Generate Invoice Number automatically.
 
+- [x] Moved&nbsp;`InvoiceForm`&nbsp;component to folder&nbsp;`containers`.
+
+- [x] `react-router-dom`&nbsp;v5 used for navigation (wrapped the&nbsp;`InvoiceModal`&nbsp;with&nbsp;`withRouter`&nbsp;to allow navigation)
+
+- [x] Disabled&nbsp;`Send Invoice`&nbsp;and&nbsp;`Download Copy`&nbsp;buttons when only viewing Invoice.
+
 ### Meta
 
 Abhinav Saini – [Connect on LinkedIn](https://linkedin.com/in/me4abhi)
+
 # invoice-generator-react-redux

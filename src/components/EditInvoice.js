@@ -6,48 +6,38 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
 import InvoiceItem from "./InvoiceItem";
-import InvoiceModal from "./InvoiceModal";
 import InputGroup from "react-bootstrap/InputGroup";
 
 import { connect } from "react-redux";
-import { addInvoice } from "../store/actions/invoiceActions";
+import { editInvoice } from "../store/actions/invoiceActions";
 
-class InvoiceForm extends React.Component {
+class EditInvoice extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      isOpen: false,
-      currency: "$",
-      currentDate: "",
-      invoiceNumber:
-        (Math.random() * 1000).toFixed(0) + Date.now().toString().slice(6),
-      dateOfIssue: "",
-      billTo: "",
-      billToEmail: "",
-      billToAddress: "",
-      billFrom: "",
-      billFromEmail: "",
-      billFromAddress: "",
-      notes: "",
-      total: "0.00",
-      subTotal: "0.00",
-      taxRate: "",
-      taxAmmount: "0.00",
-      discountRate: "",
-      discountAmmount: "0.00",
+      currency: this.props.invoiceInfo.currency,
+      currentDate: this.props.invoiceInfo.currentDate,
+      invoiceNumber: this.props.invoiceInfo.invoiceNumber,
+      dateOfIssue: this.props.invoiceInfo.dateOfIssue,
+      billTo: this.props.invoiceInfo.billTo,
+      billToEmail: this.props.invoiceInfo.billToEmail,
+      billToAddress: this.props.invoiceInfo.billToAddress,
+      billFrom: this.props.invoiceInfo.billFrom,
+      billFromEmail: this.props.invoiceInfo.billFromEmail,
+      billFromAddress: this.props.invoiceInfo.billFromAddress,
+      notes: this.props.invoiceInfo.notes,
+      total: this.props.invoiceInfo.total,
+      subTotal: this.props.invoiceInfo.subTotal,
+      taxRate: this.props.invoiceInfo.taxRate,
+      taxAmmount: this.props.invoiceInfo.taxAmmount,
+      discountRate: this.props.invoiceInfo.discountRate,
+      discountAmmount: this.props.invoiceInfo.discountAmmount,
     };
-    this.state.items = [
-      {
-        id: 0,
-        name: "",
-        description: "",
-        price: "1.00",
-        quantity: 1,
-      },
-    ];
+    this.state.items = this.props.invoiceInfo.items;
     this.editField = this.editField.bind(this);
   }
-  componentDidMount(prevProps) {
+  componentDidMount(prevstate) {
     this.handleCalculateTotal();
   }
   handleRowDel(items) {
@@ -143,21 +133,22 @@ class InvoiceForm extends React.Component {
   onCurrencyChange = (selectedOption) => {
     this.setState(selectedOption);
   };
-  openModal = (event) => {
-    event.preventDefault();
 
-    this.handleCalculateTotal();
-    this.setState({ isOpen: true });
+  updateInvoice = (e) => {
+    e.preventDefault();
+
+    this.props.editInvoice(this.state);
+    this.props.isOpen();
   };
-  closeModal = (event) => this.setState({ isOpen: false });
 
   render() {
     return (
       <>
-        <Form className="invoice-form" onSubmit={(e) => this.openModal(e)}>
+        <Form className="invoice-form" onSubmit={(e) => this.updateInvoice(e)}>
           <Row>
             <Col md={8} lg={9}>
               <Card className="p-4 p-xl-5 my-3 my-xl-4">
+                <h2>Edit Invoice</h2>
                 <div className="d-flex flex-row align-items-start justify-content-between mb-3">
                   <div className="d-flex flex-column">
                     <div className="d-flex flex-column">
@@ -343,25 +334,6 @@ class InvoiceForm extends React.Component {
             </Col>
             <Col md={4} lg={3}>
               <div className="sticky-top pt-md-3 pt-xl-4">
-                <Button
-                  variant="primary"
-                  type="submit"
-                  className="d-block w-100"
-                >
-                  Review Invoice
-                </Button>
-                <InvoiceModal
-                  showModal={this.state.isOpen}
-                  closeModal={this.closeModal}
-                  info={this.state}
-                  items={this.state.items}
-                  currency={this.state.currency}
-                  subTotal={this.state.subTotal}
-                  taxAmmount={this.state.taxAmmount}
-                  discountAmmount={this.state.discountAmmount}
-                  total={this.state.total}
-                  addInvoice={this.props.addInvoice}
-                />
                 <Form.Group className="mb-3">
                   <Form.Label className="fw-bold">Currency:</Form.Label>
                   <Form.Select
@@ -419,6 +391,13 @@ class InvoiceForm extends React.Component {
                     </InputGroup.Text>
                   </InputGroup>
                 </Form.Group>
+                <Button
+                  variant="primary"
+                  type="submit"
+                  className="d-block w-100"
+                >
+                  Save Invoice
+                </Button>
               </div>
             </Col>
           </Row>
@@ -428,11 +407,11 @@ class InvoiceForm extends React.Component {
   }
 }
 
-// state managed by redux is mapped to props
-const mapStateToProps = (state) => {
+// state managed by redux is mapped to state
+const mapStateTostate = (state) => {
   return {
     invoices: state.invoices,
   };
 };
 
-export default connect(mapStateToProps, { addInvoice })(InvoiceForm);
+export default connect(mapStateTostate, { editInvoice })(EditInvoice);
