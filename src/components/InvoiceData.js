@@ -102,13 +102,11 @@ class InvoiceData extends React.Component {
             </tbody>
           </Table>
         </div>
-
         <div className="">
           <button className=" btn btn-primary" onClick={this.goCreateInvoice}>
             Create Invoice
           </button>
         </div>
-
         {this.state.readInvoice && (
           <InvoiceModal
             showModal={this.state.readInvoice}
@@ -124,7 +122,6 @@ class InvoiceData extends React.Component {
             buttonsDisabled={true}
           />
         )}
-
         {this.state.editInvoice && (
           <>
             <EditInvoice

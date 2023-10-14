@@ -137,7 +137,7 @@ class EditInvoice extends React.Component {
   updateInvoice = (e) => {
     e.preventDefault();
 
-    this.props.editInvoice(this.props.invoiceInfo);
+    this.props.editInvoice(this.state);
     this.props.isOpen();
   };
 
