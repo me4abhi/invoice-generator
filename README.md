@@ -59,5 +59,3 @@ npm start / npm run build
 ### Meta
 
 Abhinav Saini – [Connect on LinkedIn](https://linkedin.com/in/me4abhi)
-
-# invoice-generator-react-redux
